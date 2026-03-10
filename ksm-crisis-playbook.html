@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSM — Crisis Committee Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070809;--bg2:#0c0d10;--card:#111318;--tx:#d5d1cb;--tx2:#88847e;--tx3:#4e4a46;--grn:#2d8a4e;--grn-d:#1a5a30;--red:#b82020;--red-d:#6e1515;--amb:#c4a265;--amb-d:#8a7245;--bdr:#1a1c22;--serif:'Playfair Display',Georgia,serif;--body:'Source Serif 4',Georgia,serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--amb-d) var(--bg)}
+body{background:var(--bg);color:var(--tx);font-family:var(--body);font-size:18px;line-height:1.85;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--grn);color:#fff}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(7,8,9,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-brand{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tx3)}
+.nav-brand .k{color:var(--grn)}
+.nav-links{display:flex;gap:1.4rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--amb)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2rem 5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 75%,rgba(45,138,78,.05) 0%,transparent 50%),radial-gradient(ellipse at 75% 25%,rgba(196,162,101,.03) 0%,transparent 50%);z-index:1}
+.hero-noise{position:absolute;inset:0;z-index:0;opacity:.02;background-image:repeating-linear-gradient(0deg,var(--tx) 0,var(--tx) 1px,transparent 1px,transparent 80px),repeating-linear-gradient(90deg,var(--tx) 0,var(--tx) 1px,transparent 1px,transparent 80px)}
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;width:100%}
+.hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--grn);margin-bottom:1.2rem;opacity:0;animation:up .8s .2s ease forwards}
+.hero h1{font-family:var(--serif);font-size:clamp(2.2rem,5.5vw,5rem);font-weight:900;line-height:1.08;letter-spacing:-.02em;max-width:800px;opacity:0;animation:up .8s .4s ease forwards}
+.hero h1 em{font-style:italic;color:var(--amb);font-weight:400}
+.hero-sub{font-size:1.05rem;color:var(--tx2);max-width:580px;margin-top:1.5rem;line-height:1.7;opacity:0;animation:up .8s .6s ease forwards}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;opacity:0;animation:up .8s .8s ease forwards}
+.pill{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1px solid}
+.pill-g{color:var(--grn);border-color:var(--grn-d)}
+.pill-r{color:var(--red);border-color:var(--red-d)}
+.pill-a{color:var(--amb);border-color:var(--amb-d)}
+
+.section{max-width:800px;margin:0 auto;padding:5rem 2rem}
+
+.ph{padding:6rem 2rem 2.5rem;text-align:center;position:relative}
+.ph::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(45,138,78,.04) 0%,transparent 70%)}
+.pn{font-family:var(--mono);font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--grn);position:relative}
+.pt{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:700;line-height:1.15;margin-top:.6rem;color:var(--tx);position:relative;max-width:600px;margin-left:auto;margin-right:auto}
+
+h2{font-family:var(--serif);font-size:1.6rem;font-weight:700;line-height:1.25;margin:3rem 0 1rem;color:var(--tx)}h2:first-child{margin-top:0}
+h3{font-family:var(--serif);font-size:1.25rem;font-weight:700;line-height:1.3;margin:2.2rem 0 .7rem;color:var(--tx)}
+p{margin-bottom:1.3rem;color:var(--tx2)}
+strong{color:var(--tx);font-weight:600}
+
+.q{margin:2rem -1rem;padding:1.8rem 2.2rem;border-left:3px solid var(--grn);background:linear-gradient(90deg,rgba(45,138,78,.04),transparent);font-family:var(--serif);font-size:1.2rem;font-style:italic;line-height:1.5;color:var(--tx)}
+.q .at{display:block;font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-top:.6rem}
+.q-r{border-left-color:var(--red);background:linear-gradient(90deg,rgba(184,32,32,.04),transparent)}
+.q-a{border-left-color:var(--amb);background:linear-gradient(90deg,rgba(196,162,101,.04),transparent)}
+
+.cd{background:var(--card);border:1px solid var(--bdr);padding:1.8rem;margin:1.3rem 0;position:relative;overflow:hidden}
+.cd::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--grn),var(--amb))}
+.cd h4{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amb);margin-bottom:.7rem}
+.cd p:last-child{margin-bottom:0}
+.cd-r::before{background:linear-gradient(90deg,var(--red),var(--amb))}
+.cd-warn{border-left:3px solid var(--red)}
+.cd-warn::before{display:none}
+.cd-tip{border-left:3px solid var(--grn)}
+.cd-tip::before{display:none}
+
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:2rem 0}
+.si{background:var(--card);border:1px solid var(--bdr);padding:1.5rem;text-align:center;position:relative;overflow:hidden}
+.si::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.si.g::after{background:var(--grn)}.si.r::after{background:var(--red)}.si.a::after{background:var(--amb)}
+.si .v{font-family:var(--serif);font-size:1rem;font-weight:700;line-height:1.2;padding:.3rem 0}
+.si.g .v{color:var(--grn)}.si.r .v{color:var(--red)}.si.a .v{color:var(--amb)}
+.si .l{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-top:.4rem}
+
+.tl{display:grid;grid-template-columns:90px 1fr;gap:1rem;margin:1.2rem 0;padding:1rem 0;border-bottom:1px solid var(--bdr);align-items:start}
+.tl-t{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--grn);padding-top:.15rem}
+.tl-d{color:var(--tx2);line-height:1.7;font-size:.95rem}
+.tl-d strong{color:var(--tx)}
+
+.crisis-tip{background:linear-gradient(135deg,rgba(45,138,78,.06),rgba(196,162,101,.03));border:1px solid var(--grn-d);padding:1.8rem;margin:1.5rem 0}
+.crisis-tip h4{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--grn);margin-bottom:.6rem}
+.crisis-tip h4::before{content:'⚡ '}
+.crisis-tip p:last-child{margin-bottom:0}
+
+.divider{width:45px;height:1px;background:var(--amb);margin:3rem auto}
+
+.toc{background:var(--card);border:1px solid var(--bdr);padding:2.2rem;margin:2rem 0}
+.toc h3{font-family:var(--mono);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--amb);margin:0 0 1rem}
+.toc ol{list-style:none;counter-reset:t}
+.toc li{counter-increment:t;padding:.5rem 0;border-bottom:1px solid var(--bdr)}
+.toc li:last-child{border-bottom:none}
+.toc a{color:var(--tx2);text-decoration:none;font-size:.9rem;transition:color .3s;display:flex;align-items:center;gap:.7rem}
+.toc a::before{content:counter(t);font-family:var(--mono);font-size:10px;color:var(--grn-d);min-width:20px}
+.toc a:hover{color:var(--amb)}
+
+.footer{border-top:1px solid var(--bdr);padding:3rem 2rem;text-align:center}
+.footer p{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin:0}
+.footer .n{font-size:12px;letter-spacing:0;text-transform:none;font-family:var(--body);color:var(--tx3);margin-top:.6rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  .hero{padding:0 1.5rem 3.5rem}.section{padding:3.5rem 1.5rem}.ph{padding:4rem 1.5rem 2rem}
+  .q{margin:1.5rem 0;padding:1.2rem 1.5rem;font-size:1.05rem}
+  .tl{grid-template-columns:70px 1fr;gap:.7rem}.nav-links{display:none}.sg{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){body{font-size:16px}h2{font-size:1.35rem}.sg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <div class="nav-brand"><span class="k">KSM</span> — Crisis Committee Playbook</div>
+  <ul class="nav-links">
+    <li><a href="#bio">Bio</a></li>
+    <li><a href="#mind">Mindset</a></li>
+    <li><a href="#ops">Operations</a></li>
+    <li><a href="#network">Network</a></li>
+    <li><a href="#crisis">Crisis Guide</a></li>
+    <li><a href="#rp">Roleplay</a></li>
+  </ul>
+</div></nav>
+
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Crisis Committee — Character Dossier</div>
+    <h1>Khalid Sheikh Mohammed: <em>The Architect</em></h1>
+    <p class="hero-sub">The self-described mastermind of 9/11 "from A to Z" — mechanical engineer, al-Qaeda's chief operational planner, and the man who turned hijacked aircraft into guided missiles. Your complete guide to roleplaying KSM in crisis committee.</p>
+    <div class="hero-pills">
+      <span class="pill pill-g">Engineer</span>
+      <span class="pill pill-g">Operational Planner</span>
+      <span class="pill pill-r">Most Wanted</span>
+      <span class="pill pill-a">Propaganda Chief</span>
+      <span class="pill pill-a">50+ Aliases</span>
+      <span class="pill pill-r">183× Waterboarded</span>
+    </div>
+  </div>
+</section>
+
+<div class="section reveal">
+  <div class="toc">
+    <h3>Dossier Contents</h3>
+    <ol>
+      <li><a href="#bio">Full Biography & Timeline</a></li>
+      <li><a href="#mind">Ideology, Motivations & Strategic Thinking</a></li>
+      <li><a href="#ops">Operational History: From Bojinka to 9/11</a></li>
+      <li><a href="#network">Key Relationships & Power Dynamics</a></li>
+      <li><a href="#crisis">Crisis Committee Playbook</a></li>
+      <li><a href="#rp">Roleplaying KSM: Voice, Style & Tactics</a></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ═══ PART 1: BIO ═══ -->
+<div class="ph reveal" id="bio"><div class="pn">01</div><div class="pt">Full Biography & Timeline</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>Early life: Kuwait, radicalization, America</h3>
+    <p>Born <strong>April 14, 1965</strong> in Kuwait to Pakistani immigrants from Balochistan province. His father, Sheikh Mohammed Ali Baluchi, was an imam. KSM grew up in the Ahmadi neighborhood of Kuwait, spoke English, Urdu, Balochi, and Arabic. At 16, he joined the <strong>Muslim Brotherhood</strong> and became "enamored of violent jihad at youth camps in the desert" (9/11 Commission Report).</p>
+    <p>In <strong>1983</strong>, he moved to the United States — first to Chowan College in Murfreesboro, North Carolina, then transferring to <strong>North Carolina A&T State University</strong>, where he earned a <strong>degree in mechanical engineering in 1986</strong>. This American education is critical to understanding KSM: he knew the country he would attack intimately. His old teacher Sheikh Ahmed Dabbous later said KSM returned from America "a different man… very sad. He told me Americans hated Islam because of Israel."</p>
+    <p>After graduating, KSM traveled to Afghanistan during the Soviet-Afghan War for military training. He fought alongside the mujahideen, building the combat and logistical skills he would later weaponize.</p>
+  </div>
+
+  <div class="reveal">
+    <h3>Key life timeline</h3>
+    <div class="tl"><div class="tl-t">1965</div><div class="tl-d">Born in Kuwait to Pakistani Baloch family</div></div>
+    <div class="tl"><div class="tl-t">1983–86</div><div class="tl-d"><strong>Studies in the U.S.</strong> — Chowan College → NC A&T, mechanical engineering degree</div></div>
+    <div class="tl"><div class="tl-t">1987–92</div><div class="tl-d">Fights in Afghanistan during Soviet-Afghan War. Returns to Kuwait, then Pakistan. Earns MA in Islamic History from Punjab University (1992)</div></div>
+    <div class="tl"><div class="tl-t">1993</div><div class="tl-d">Supports nephew <strong>Ramzi Yousef</strong>'s World Trade Center bombing (financial/logistical role). First contact with WTC as a target</div></div>
+    <div class="tl"><div class="tl-t">1994–95</div><div class="tl-d"><strong>Bojinka Plot</strong> in Manila — plans to blow up 12 U.S.-bound airliners simultaneously. Plot discovered by accident (apartment fire). One Bojinka element: crashing a plane into CIA HQ</div></div>
+    <div class="tl"><div class="tl-t">1996</div><div class="tl-d"><strong>Pitches bin Laden</strong> at Tora Bora on the "planes operation" — using hijacked aircraft as missiles against U.S. buildings. Original plan: 10 planes, both coasts</div></div>
+    <div class="tl"><div class="tl-t">1998–99</div><div class="tl-d">Bin Laden approves scaled plan (4 planes). KSM formally joins al-Qaeda. Begins selecting and training pilot hijackers</div></div>
+    <div class="tl"><div class="tl-t">1999–01</div><div class="tl-d"><strong>Orchestrates the 9/11 plot</strong> from Pakistan/Afghanistan — selects targets, trains pilots, manages logistics, coordinates with Hamburg cell</div></div>
+    <div class="tl"><div class="tl-t">Sep 2001</div><div class="tl-d"><strong>9/11 attacks</strong> — 2,977 killed. KSM's "masterpiece." His status within al-Qaeda skyrockets</div></div>
+    <div class="tl"><div class="tl-t">2001–03</div><div class="tl-d">Plans additional attacks: Richard Reid shoe bombing (foiled Dec 2001), Heathrow Airport plot, second wave attacks on West Coast. <strong>Murders Daniel Pearl</strong> (Feb 2002)</div></div>
+    <div class="tl"><div class="tl-t">Mar 2003</div><div class="tl-d"><strong>Captured</strong> in Rawalpindi, Pakistan by CIA/ISI joint operation. Found in pajamas at 3 AM</div></div>
+    <div class="tl"><div class="tl-t">2003–06</div><div class="tl-d">Held in CIA <strong>black sites</strong> (Afghanistan, Poland, Romania, Lithuania). Waterboarded <strong>183 times</strong> in one month. Fabricated information to stop torture</div></div>
+    <div class="tl"><div class="tl-t">2006–now</div><div class="tl-d">Transferred to <strong>Guantánamo Bay</strong>. Charged 2008. States: "I was responsible for the 9/11 operation from A to Z." Trial still unresolved as of 2026</div></div>
+  </div>
+</div>
+
+<!-- ═══ PART 2: MIND ═══ -->
+<div class="ph reveal" id="mind"><div class="pn">02</div><div class="pt">Ideology, Motivations & Strategic Thinking</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>Not a theologian — a strategist</h3>
+    <p>KSM is fundamentally different from bin Laden. Bin Laden was the ideologue, the charismatic preacher, the brand. KSM was the <strong>engineer who turned ideology into infrastructure</strong>. He was less interested in fatwas than in flight schedules, less concerned with theology than with structural engineering.</p>
+    <p>The 9/11 Commission described him as "an ambitious, talented self-promoter" who was "not a religious figure" but "a practical operator who could get things done." CIA analysts called him an "entrepreneur of terror." He was a freelancer before joining al-Qaeda — he operated semi-independently, pitching ideas to bin Laden like a contractor pitching a client.</p>
+    
+    <div class="cd">
+      <h4>KSM's Three Core Grievances</h4>
+      <p><strong>1. U.S. support for Israel</strong> — This was his primary, lifelong motivation. He told interrogators his hatred was formed "not by his experiences as a student in the U.S., but rather by his violent disagreement with U.S. foreign policy favoring Israel."</p>
+      <p><strong>2. American cultural/military presence in Muslim lands</strong> — the U.S. military footprint in Saudi Arabia, the Gulf states, and the broader Middle East</p>
+      <p>3. <strong>Personal ambition</strong> — KSM wanted to be remembered. He wanted to execute the most spectacular terrorist attack in history. The 9/11 Commission noted his "grandiosity" and desire for recognition</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <h3>How KSM thinks — the engineer's logic</h3>
+    <p>KSM approaches terrorism the way an engineer approaches a problem: identify the target, design the system, optimize for maximum impact, test components, iterate, execute. His operational hallmarks include:</p>
+    <div class="sg">
+      <div class="si g"><div class="v">Simultaneous<br>Strikes</div><div class="l">Multiple targets hit at once for maximum chaos</div></div>
+      <div class="si g"><div class="v">Civilian<br>Aviation</div><div class="l">His preferred weapon system — planes as missiles</div></div>
+      <div class="si a"><div class="v">Spectacle<br>Over Kill Count</div><div class="l">Visual & psychological impact matters most</div></div>
+      <div class="si r"><div class="v">Operational<br>Security</div><div class="l">50+ aliases, constant movement, compartmentalized cells</div></div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="q">
+      "I was responsible for the 9/11 operation from A to Z."
+      <span class="at">KSM, Combatant Status Review Tribunal, March 2007</span>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <h3>His view of the enemy</h3>
+    <p>KSM sees the United States not as a civilization to be destroyed but as a <strong>power structure to be humiliated</strong>. He told Al Jazeera journalist Yosri Fouda in April 2002 that 9/11 was designed to show that America "is not invincible." The targets were chosen for their <strong>symbolic value</strong>: the WTC (economic power), the Pentagon (military power), the Capitol (political power).</p>
+    <p>He explicitly rejected bin Laden's suggestion that simply crashing planes into the ground would be sufficient. KSM insisted the planes <strong>must hit buildings</strong> — the visual spectacle of skyscrapers collapsing on live television was the entire point.</p>
+  </div>
+</div>
+
+<!-- ═══ PART 3: OPS ═══ -->
+<div class="ph reveal" id="ops"><div class="pn">03</div><div class="pt">Operational History: From Bojinka to 9/11</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>The Bojinka Plot (1994–95) — the prototype</h3>
+    <p>In Manila with nephew Ramzi Yousef, KSM designed a plan to simultaneously destroy <strong>12 U.S.-bound transpacific airliners</strong> using virtually undetectable liquid explosives. The math was simple: 12 flights × 400+ passengers = ~5,000 dead. An element of the plan involved hijacking a plane and crashing it into CIA headquarters — the seed of 9/11.</p>
+    <p>The plot was discovered by accident when a fire broke out in their Manila apartment. Yousef's confederate Abdul Hakim Murad was arrested; Yousef fled but was captured in Pakistan in 1995. KSM escaped and was indicted in New York in 1996 — but the FBI's "insistence on unnecessary formalities" left him free to plan 9/11.</p>
+  </div>
+
+  <div class="reveal">
+    <h3>The 9/11 operation — KSM's masterwork</h3>
+    <p>KSM's original vision was far more ambitious than what was executed:</p>
+    <div class="cd">
+      <h4>Original Plan (1996): 10 Aircraft</h4>
+      <p>9 planes crash into targets on both coasts — WTC, Pentagon, CIA HQ, FBI HQ, nuclear power plants, tallest buildings in California and Washington state. KSM himself would land the 10th plane at a U.S. airport, kill all adult male passengers, and <strong>deliver a televised speech denouncing U.S. policy</strong>. Bin Laden scaled it to 4 planes for operational feasibility.</p>
+    </div>
+    <p>KSM's operational contributions to the final plan included: selecting the targets, choosing transcontinental flights (maximum fuel), identifying and screening pilot candidates, providing training guidance, managing the budget (~$400,000–500,000), coordinating logistics through facilitators Ali Abdul Aziz Ali (his nephew) and Mustafa al-Hawsawi, and setting the attack date through intermediary Ramzi bin al-Shibh.</p>
+  </div>
+
+  <div class="reveal">
+    <h3>Post-9/11 operations</h3>
+    <p>After 9/11, KSM's status within al-Qaeda soared. He was involved in:</p>
+    <div class="tl"><div class="tl-t">Dec 2001</div><div class="tl-d"><strong>Richard Reid shoe bombing</strong> — attempt to destroy American Airlines flight with explosive shoes. Foiled by passengers</div></div>
+    <div class="tl"><div class="tl-t">Feb 2002</div><div class="tl-d"><strong>Murder of Daniel Pearl</strong> — KSM personally beheaded the Wall Street Journal reporter. Later stated: "I decapitated with my blessed right hand the head of the American Jew"</div></div>
+    <div class="tl"><div class="tl-t">2002–03</div><div class="tl-d">Planned <strong>Heathrow Airport attack</strong>, second wave attacks on U.S. West Coast (Library Tower, LA), and various other plots — all disrupted by his capture</div></div>
+  </div>
+</div>
+
+<!-- ═══ PART 4: NETWORK ═══ -->
+<div class="ph reveal" id="network"><div class="pn">04</div><div class="pt">Key Relationships & Power Dynamics</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>KSM's position within al-Qaeda</h3>
+    <p>KSM was <strong>not</strong> a member of al-Qaeda until 1998–99. He was an independent operator — a freelancer who pitched plans to bin Laden. This is critical for crisis committee: KSM's loyalty is to his operations, not necessarily to the organization. He has his own agenda.</p>
+
+    <div class="cd">
+      <h4>Osama bin Laden — The Patron</h4>
+      <p>Bin Laden provided approval, funding, and recruits. But the 9/11 concept was entirely KSM's. In a video, bin Laden himself praised KSM (by code name "Mukhtar") as the architect. The relationship was collaborative but KSM maintained significant autonomy. Bin Laden sometimes overruled KSM (scaling from 10 to 4 planes; insisting on specific target selection).</p>
+    </div>
+
+    <div class="cd">
+      <h4>Ramzi Yousef — The Nephew & Prototype</h4>
+      <p>KSM's nephew, the 1993 WTC bomber. They were childhood companions in Kuwait (close in age despite the uncle-nephew relation). Yousef's 1993 bombing planted the WTC in KSM's imagination. Their Manila collaboration on Bojinka was the operational rehearsal for 9/11.</p>
+    </div>
+
+    <div class="cd">
+      <h4>Mohamed Atta — The Field Commander</h4>
+      <p>KSM trained and directed Atta, but Atta led the operation on the ground in America. KSM communicated through intermediary Ramzi bin al-Shibh (who couldn't get a U.S. visa). Atta met bin al-Shibh in Berlin (Jan 2001) and Madrid (July 2001) to relay KSM's instructions and finalize the date.</p>
+    </div>
+
+    <div class="cd">
+      <h4>Ramzi bin al-Shibh — The Coordinator</h4>
+      <p>A member of the Hamburg cell who was supposed to be the 4th pilot but was denied a U.S. visa four times. Became the vital communications link between KSM (in Pakistan) and Atta (in America). Co-appeared with KSM in the 2002 Al Jazeera interview with Yosri Fouda.</p>
+    </div>
+
+    <div class="cd">
+      <h4>Ali Abdul Aziz Ali (Ammar al-Baluchi) — The Money Man</h4>
+      <p>KSM's nephew. Wired $119,500 to the hijackers in six transactions. A crucial financial facilitator. Currently a co-defendant at Guantánamo.</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="crisis-tip">
+      <h4>Crisis Committee Note: KSM's Independence</h4>
+      <p>In crisis committee, play KSM as someone who respects bin Laden's authority but frequently pushes for his own, more ambitious plans. He's the operational brain — not a yes-man. He'll argue for bolder action, more targets, more spectacle. He might clash with more cautious figures in al-Qaeda's Shura council.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PART 5: CRISIS ═══ -->
+<div class="ph reveal" id="crisis"><div class="pn">05</div><div class="pt">Crisis Committee Playbook</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>How to respond to common crisis arcs</h3>
+
+    <div class="cd cd-tip">
+      <h4>Arc: U.S. military retaliation / invasion of Afghanistan</h4>
+      <p><strong>KSM's position:</strong> Expected and even desired. 9/11 was designed to provoke a massive overreaction. KSM understood that a U.S. invasion of Muslim lands would be the greatest recruitment tool imaginable. Argue that American boots on Afghan soil will radicalize a generation. Propose <strong>second wave attacks</strong> to further destabilize the American response. Push for attacks on U.S. allies to fracture the coalition.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Arc: Intelligence compromise / agents captured</h4>
+      <p><strong>KSM's position:</strong> Compartmentalize immediately. KSM operated with extreme opsec — 50+ aliases, constant movement, encrypted communications. Argue for cutting off compromised cells entirely. Propose moving operations to new safe havens (Pakistan's tribal areas, Southeast Asia). KSM had networks across Qatar, Pakistan, Philippines, Bosnia — he can relocate.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Arc: Internal al-Qaeda power struggle</h4>
+      <p><strong>KSM's position:</strong> KSM was never a pure ideologue — he's the irreplaceable operational talent. His leverage is that nobody else can plan at his level. If pushed out, he can freelance (as he did before 1998). Play the "I brought you 9/11" card. Remind the Shura that bin Laden personally endorsed his autonomy.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Arc: Opportunity for new attacks</h4>
+      <p><strong>KSM's approach:</strong> Always think in terms of spectacle and simultaneity. Propose multiple simultaneous strikes. Target aviation (his signature). Consider economic targets — KSM told interrogators they first considered nuclear facilities before deeming them too complex. He also proposed attacks on oil tankers, bridges, and financial infrastructure.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Arc: Negotiations or peace feelers</h4>
+      <p><strong>KSM's position:</strong> Reject categorically. KSM is not a nationalist with negotiable political goals (like the PLO or IRA). His war is existential — against U.S. foreign policy and its support for Israel. There is no deal to be made. His stated aims require the complete withdrawal of the U.S. from the Muslim world. He would view negotiations as weakness.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Arc: Media / propaganda opportunities</h4>
+      <p><strong>KSM's position:</strong> Seize them. KSM was al-Qaeda's head of propaganda. He arranged the Al Jazeera interview with Fouda (April 2002). He understands media spectacle — 9/11 was designed to be broadcast live. Propose video messages, claim attacks publicly, use media to amplify fear. KSM would argue that one well-timed video is worth a thousand fighters.</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <h3>Directives you might write</h3>
+    <div class="cd">
+      <h4>Sample Crisis Directive Structure</h4>
+      <p><strong>Intelligence gathering:</strong> "Dispatch operatives to [target country] under student/business visas. Establish cover identities. Map aviation security procedures at [specific airports]."</p>
+      <p><strong>Operational planning:</strong> "Begin flight training for 3 operatives at civilian schools in [region]. Prioritize transcontinental routes with maximum fuel loads."</p>
+      <p><strong>Financial logistics:</strong> "Route funds through hawala networks via [intermediary]. Use exchange houses in Dubai. Keep individual wire transfers under $10,000 to avoid banking thresholds."</p>
+      <p><strong>Counter-intelligence:</strong> "Immediately sever contact with [compromised cell]. Destroy all communications devices. Relocate to [safe house]. Adopt new aliases from prepared identity kits."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PART 6: ROLEPLAY ═══ -->
+<div class="ph reveal" id="rp"><div class="pn">06</div><div class="pt">Roleplaying KSM: Voice, Style & Tactics</div></div>
+<div class="section">
+  <div class="reveal">
+    <h3>KSM's personality profile (from CIA interrogation cables)</h3>
+    <p>CIA cables from 2003 provide a detailed psychological profile:</p>
+    <div class="sg">
+      <div class="si g"><div class="v">Casual &<br>Conversational</div><div class="l">When telling the truth, speaks freely and casually</div></div>
+      <div class="si a"><div class="v">Grandiose &<br>Self-Promoting</div><div class="l">Craves recognition. Wants to be known as the mastermind</div></div>
+      <div class="si r"><div class="v">Manipulative<br>& Deceptive</div><div class="l">Fabricated information constantly. Made a game of interrogation</div></div>
+      <div class="si g"><div class="v">Technically<br>Brilliant</div><div class="l">Engineering mind. Thinks in systems, logistics, timelines</div></div>
+    </div>
+    <p>A remarkable detail from a declassified cable: a small frog jumped out of a drain in his cell. An interrogator caught it. KSM said: <strong>"No, no. Let it stay."</strong> He asked that the frog be returned to the drain. The CIA observer called it "a poignant moment."</p>
+  </div>
+
+  <div class="reveal">
+    <h3>How to speak as KSM in committee</h3>
+    
+    <div class="cd cd-tip">
+      <h4>Tone: Confident, almost casual</h4>
+      <p>KSM is not a ranting zealot. He's calm, even charming. He speaks about mass murder the way an engineer speaks about a project he's proud of. Channel cold competence, not emotional fury. Think: a CEO presenting quarterly results, except the product is terror.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Frame everything as strategy, not emotion</h4>
+      <p>Don't say: "We must destroy the infidels!" Say: "The Americans' greatest vulnerability is their dependence on aviation infrastructure and their psychological attachment to iconic landmarks. A simultaneous strike on three or four such targets would create maximum disruption at minimal cost." KSM thinks in cost-benefit terms.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Assert your operational supremacy</h4>
+      <p>KSM is the irreplaceable man. If anyone challenges your authority, remind them: "I conceived this operation. I selected the targets. I trained the pilots. I managed the finances. I coordinated the timing. Who else in this room can say the same?" He's earned his seat through results.</p>
+    </div>
+
+    <div class="cd cd-tip">
+      <h4>Use your American knowledge</h4>
+      <p>KSM lived in America for 3+ years. He understands the country from the inside — its culture, its airport security, its media cycle, its political system. Use this as an asset: "I have walked their streets. I have studied in their universities. I know how they think, and I know where they are blind."</p>
+    </div>
+
+    <div class="cd cd-warn">
+      <h4>⚠️ What NOT to do</h4>
+      <p><strong>Don't be one-dimensional.</strong> KSM is not a cartoon villain. He's intelligent, educated, occasionally humorous, and genuinely believes he is fighting for a just cause. The more nuanced you play him, the more effective (and award-worthy) your performance. Don't shout. Don't monologue about religion. Be the quiet, brilliant, terrifying planner in the room.</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <h3>Key quotes to use in committee</h3>
+    <div class="q">"I was responsible for the 9/11 operation from A to Z."<span class="at">CSRT Hearing, 2007</span></div>
+    <div class="q q-a">"That is what I wish. I wish to be martyred."<span class="at">When told charges carry the death penalty, 2008 arraignment</span></div>
+    <div class="q">"I decapitated with my blessed right hand the head of the American Jew, Daniel Pearl."<span class="at">CSRT Hearing, 2007</span></div>
+    <div class="q q-r">"God is the real judge."<span class="at">When asked about legal representation, 2008</span></div>
+  </div>
+
+  <div class="reveal">
+    <div class="crisis-tip">
+      <h4>Opening Speech Framework for Crisis Committee</h4>
+      <p><strong>"Brothers,</strong> the operation of September 11 demonstrated what a small number of committed men, armed with nothing more than box cutters and knowledge of the enemy's own systems, can achieve against the most powerful nation on earth. The Americans spent $300 billion on their military last year. We spent $400,000. The towers fell. The Pentagon burned. Their president hid in a bunker. Their economy lost $3.3 trillion. Their people are afraid to board airplanes. This is the calculus of asymmetric warfare: we do not need to match their strength. We need only exploit their vulnerabilities. And I know those vulnerabilities — I studied in their universities, I walked their streets, I understand their systems. The question before us now is not whether to strike again, but how, and when, and where. I have proposals. I have always had proposals. That is what I do."</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="cd">
+      <h4>Final Advice for Best Delegate</h4>
+      <p><strong>Win the room with competence, not volume.</strong> KSM's superpower is that he's the smartest person in any operational discussion. Write the most detailed directives. Be the delegate who has the plan when others are still debating ideology. When the crisis unfolds, be the first to propose a coherent response. That's what KSM would do — and that's what wins gavels.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Crisis Committee Character Dossier — Khalid Sheikh Mohammed</p>
+  <div class="n">Sources: 9/11 Commission Report, Britannica, CIA declassified interrogation cables (via The Intercept), Senate Intelligence Committee Torture Report, the Rendition Project, NPR, CNN, PBS, and academic works by Terry McDermott, Josh Meyer, and Lawrence Wright.</div>
+</footer>
+
+<script>
+const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>o.observe(el));
+document.querySelectorAll('.nav-links a,.toc a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
